@@ -30,7 +30,6 @@ def get_most_frequent_words(raw_text):
 
 if __name__ == '__main__':
     print('Parsing text...')
-#    raw_text = load_data('1984.txt')
     try:
         raw_text = load_data(get_commandline_arguments().filepath)
     except (FileNotFoundError):
