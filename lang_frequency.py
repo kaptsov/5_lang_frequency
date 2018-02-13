@@ -3,6 +3,9 @@ import collections
 import re
 
 
+WORD_QUANTITY = 10
+
+
 def get_commandline_arguments():
     parser = argparse.ArgumentParser(description='Get the link to json file.')
     parser.add_argument('filepath', type=str)
@@ -29,5 +32,5 @@ if __name__ == '__main__':
     except (FileNotFoundError):
         exit('File is missing.')
     print('The most frequent words in file are:')
-    for word in get_most_frequent_words(raw_text).most_common(10):
+    for word in get_most_frequent_words(raw_text).most_common(WORD_QUANTITY):
         print(word)
