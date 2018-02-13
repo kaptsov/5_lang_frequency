@@ -1,5 +1,5 @@
 import argparse
-import operator
+import collections
 import re
 
 
@@ -16,16 +16,10 @@ def load_data(filepath):
 
 
 def get_most_frequent_words(raw_text):
-    frequency = {}
+    frequency_list = collections.Counter()
     match_pattern = re.findall(r'\b[a-я]{4,25}\b', raw_text.lower())
     for word in match_pattern:
-        count = frequency.get(word, 0)
-        frequency[word] = count + 1
-    frequency_list = sorted(
-                            frequency.items(),
-                            key=operator.itemgetter(1),
-                            reverse=True
-    )
+        frequency_list[word] += 1
     return frequency_list
 
 if __name__ == '__main__':
@@ -35,5 +29,4 @@ if __name__ == '__main__':
     except (FileNotFoundError):
         exit('File is missing.')
     print('The most frequent words in file are:')
-    for word in get_most_frequent_words(raw_text)[0:10]:
-        print(word)
+    print(get_most_frequent_words(raw_text).most_common(10))
