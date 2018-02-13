@@ -29,4 +29,5 @@ if __name__ == '__main__':
     except (FileNotFoundError):
         exit('File is missing.')
     print('The most frequent words in file are:')
-    print(get_most_frequent_words(raw_text).most_common(10))
+    for word in get_most_frequent_words(raw_text).most_common(10):
+        print(word)
