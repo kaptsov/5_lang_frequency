@@ -1,9 +1,6 @@
 import argparse
-import collections
 import re
-
-
-WORD_QUANTITY = 10
+from collections import Counter
 
 
 def get_commandline_arguments():
@@ -19,18 +16,17 @@ def load_data(filepath):
 
 
 def get_most_frequent_words(raw_text):
-    frequency_list = collections.Counter()
-    match_pattern = re.findall(r'\b[a-я]{4,25}\b', raw_text.lower())
-    for word in match_pattern:
-        frequency_list[word] += 1
-    return frequency_list
+    match_pattern = re.findall(r'\b[a-я]{4,}\b', raw_text.lower())
+    return Counter(match_pattern)
+
 
 if __name__ == '__main__':
-    print('Parsing text...')
+    word_quantity = 10
     try:
         raw_text = load_data(get_commandline_arguments().filepath)
+        print('Parsing text...')
     except (FileNotFoundError):
         exit('File is missing.')
     print('The most frequent words in file are:')
-    for word in get_most_frequent_words(raw_text).most_common(WORD_QUANTITY):
-        print(word)
+    for word in get_most_frequent_words(raw_text).most_common(word_quantity):
+        print(word[0], '-', word[1])
