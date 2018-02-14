@@ -15,9 +15,8 @@ def load_data(filepath):
     return filedata
 
 
-def get_most_frequent_words(raw_text):
-    match_pattern = re.findall(r'\b[a-я]{4,}\b', raw_text.lower())
-    return Counter(match_pattern)
+def get_stuctured_word_list(raw_text):
+    return Counter(re.findall(r'\b[a-я]{4,}\b', raw_text.lower()))
 
 
 if __name__ == '__main__':
@@ -28,5 +27,6 @@ if __name__ == '__main__':
     except (FileNotFoundError):
         exit('File is missing.')
     print('The most frequent words in file are:')
-    for word in get_most_frequent_words(raw_text).most_common(word_quantity):
-        print(word[0], '-', word[1])
+    for word in get_stuctured_word_list(raw_text).most_common(word_quantity):
+        common_word, common_word_quantity = word[0], word[1]
+        print(common_word, '-', common_word_quantity)
